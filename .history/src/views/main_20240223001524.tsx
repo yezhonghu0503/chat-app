@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import SyntheticalBar from './synthetical/SyntheticalBar';
-import ChatBox from './chatbox/chatBox';
 import {useSelector} from 'react-redux';
 
 const FlexDimensionsBasics = () => {
@@ -23,9 +22,7 @@ const FlexDimensionsBasics = () => {
   });
   return (
     <View style={styles.globalBox}>
-      <View style={styles.chatBox}>
-        <ChatBox />
-      </View>
+      <View style={styles.chatBox} />
       <View style={styles.syntheticalBox}>
         <SyntheticalBar />
       </View>

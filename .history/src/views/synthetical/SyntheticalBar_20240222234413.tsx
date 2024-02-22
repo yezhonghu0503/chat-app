@@ -1,19 +1,10 @@
 import React, {useState} from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Image,
-  // Text,
-  TouchableOpacity,
-} from 'react-native';
-import {closeMenu, openMenu} from '../../store/reducers/mutual';
-import {useDispatch, useSelector} from 'react-redux';
+import {View, TextInput, StyleSheet, Image} from 'react-native';
+import { openMenu,closeMenu } from '../../store/reducers/mutual';}
 
 const SyntheticalBar = () => {
   const [mesInput, setMesInput] = useState('');
-  const dispatch = useDispatch();
-  const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  
   return (
     <View style={styles.unitBox}>
       <View style={styles.syntheticalBoxInput}>
@@ -29,21 +20,16 @@ const SyntheticalBar = () => {
           placeholder="type message"
           placeholderTextColor="#F5F5F5"
         />
-        {/* <Text>{String(menuStatus)}</Text> */}
+
         <Image source={require('./img/send.png')} />
       </View>
 
       <View style={styles.syntheticalBoxMenu}>
         <Image source={require('./img/voice.png')} />
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          menuStatus ? dispatch(closeMenu()) : dispatch(openMenu());
-        }}>
-        <View style={styles.syntheticalBoxMenu}>
-          <Image source={require('./img/menu.png')} />
-        </View>
-      </TouchableOpacity>
+      <View style={styles.syntheticalBoxMenu}>
+        <Image source={require('./img/menu.png')} />
+      </View>
     </View>
   );
 };

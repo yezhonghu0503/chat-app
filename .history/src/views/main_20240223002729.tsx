@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import SyntheticalBar from './synthetical/SyntheticalBar';
 import ChatBox from './chatbox/chatBox';
 import {useSelector} from 'react-redux';

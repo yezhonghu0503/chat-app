@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import SyntheticalBar from './synthetical/SyntheticalBar';
-import ChatBox from './chatbox/chatBox';
 import {useSelector} from 'react-redux';
 
 const FlexDimensionsBasics = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  console.log(menuStatus);
   const styles = StyleSheet.create({
     globalBox: {
       flex: 1,
@@ -18,17 +18,16 @@ const FlexDimensionsBasics = () => {
       borderRadius: 35,
     },
     syntheticalBox: {
-      flex: menuStatus ? 1 : 3,
+      flex: 1,
     },
   });
   return (
     <View style={styles.globalBox}>
-      <View style={styles.chatBox}>
-        <ChatBox />
-      </View>
+      <View style={styles.chatBox} />
       <View style={styles.syntheticalBox}>
         <SyntheticalBar />
       </View>
+      <Text>{String(menuStatus)}</Text>
     </View>
   );
 };

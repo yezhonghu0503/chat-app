@@ -4,16 +4,16 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  // Text,
+  Text,
   TouchableOpacity,
 } from 'react-native';
-import {closeMenu, openMenu} from '../../store/reducers/mutual';
+import {openMenu} from '../../store/reducers/mutual';
 import {useDispatch, useSelector} from 'react-redux';
 
 const SyntheticalBar = () => {
   const [mesInput, setMesInput] = useState('');
   const dispatch = useDispatch();
-  const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  const menuStatus = useSelector((state: any) => state.isMenuStatus);
   return (
     <View style={styles.unitBox}>
       <View style={styles.syntheticalBoxInput}>
@@ -29,7 +29,7 @@ const SyntheticalBar = () => {
           placeholder="type message"
           placeholderTextColor="#F5F5F5"
         />
-        {/* <Text>{String(menuStatus)}</Text> */}
+        <Text>{String(menuStatus)}</Text>
         <Image source={require('./img/send.png')} />
       </View>
 
@@ -38,7 +38,7 @@ const SyntheticalBar = () => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          menuStatus ? dispatch(closeMenu()) : dispatch(openMenu());
+          dispatch(openMenu());
         }}>
         <View style={styles.syntheticalBoxMenu}>
           <Image source={require('./img/menu.png')} />

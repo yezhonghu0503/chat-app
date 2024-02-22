@@ -7,7 +7,7 @@ import {
   // Text,
   TouchableOpacity,
 } from 'react-native';
-import {closeMenu, openMenu} from '../../store/reducers/mutual';
+import {openMenu} from '../../store/reducers/mutual';
 import {useDispatch, useSelector} from 'react-redux';
 
 const SyntheticalBar = () => {
@@ -38,7 +38,7 @@ const SyntheticalBar = () => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          menuStatus ? dispatch(closeMenu()) : dispatch(openMenu());
+          menuStatus ? dispatch(openMenu()) : dispatch(openMenu());
         }}>
         <View style={styles.syntheticalBoxMenu}>
           <Image source={require('./img/menu.png')} />
