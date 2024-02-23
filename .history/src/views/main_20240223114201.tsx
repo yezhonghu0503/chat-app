@@ -5,12 +5,9 @@ import ChatBox from './chatbox/chatBox';
 import {useSelector} from 'react-redux';
 
 const FlexDimensionsBasics = () => {
-  // -----业务模块------
-  // -----动画模块------
   const {height: windowHeight} = Dimensions.get('window');
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
   const chatBoxHeight: any = useRef(new Animated.Value(0.4)).current;
-  // 高度映射值
   const animatedHeight = chatBoxHeight.interpolate({
     inputRange: [0, 1],
     outputRange: [0, windowHeight * 0.9], // 将比例值转换为具体的高度值
@@ -18,14 +15,12 @@ const FlexDimensionsBasics = () => {
   useEffect(() => {
     Animated.timing(chatBoxHeight, {
       toValue: menuStatus ? 0.9 : 0.4,
-      duration: 500,
+      duration: 5000,
       useNativeDriver: false,
     }).start();
     console.log(chatBoxHeight);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuStatus]);
-
-  // 样式表
   const styles = StyleSheet.create({
     globalBox: {
       flex: 1,

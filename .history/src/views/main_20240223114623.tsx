@@ -19,7 +19,7 @@ const FlexDimensionsBasics = () => {
     Animated.timing(chatBoxHeight, {
       toValue: menuStatus ? 0.9 : 0.4,
       duration: 500,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start();
     console.log(chatBoxHeight);
     // eslint-disable-next-line react-hooks/exhaustive-deps
