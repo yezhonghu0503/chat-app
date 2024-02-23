@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'; //useEffect, useRef
+import React from 'react'; //useEffect, useRef
 import {
   View,
   StyleSheet,
+  Animated,
   UIManager,
-  LayoutAnimation,
   //Dimensions
 } from 'react-native';
 import SyntheticalBar from './synthetical/SyntheticalBar';
@@ -13,14 +13,23 @@ import {useSelector} from 'react-redux';
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 const FlexDimensionsBasics = () => {
-  const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
   // -----业务模块------
   // -----动画模块------
   // const {height: windowHeight} = Dimensions.get('window');
-  const [chatBoxValue, setChatBoxValue] = useState(2);
+  const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  // const chatBoxHeight: any = useRef(new Animated.Value(0.4)).current;
+  // 高度映射值
+  // const animatedHeight = chatBoxHeight.interpolate({
+  //   inputRange: [0, 1],
+  //   outputRange: [0, windowHeight * 0.9], // 将比例值转换为具体的高度值
+  // });
   useEffect(() => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-    setChatBoxValue(menuStatus ? 8 : 1);
+    // Animated.timing(chatBoxHeight, {
+    //   toValue: menuStatus ? 0.9 : 0.4,
+    //   duration: 500,
+    //   useNativeDriver: false,
+    // }).start();
+    // console.log(chatBoxHeight);
   }, [menuStatus]);
 
   // 样式表
@@ -30,8 +39,8 @@ const FlexDimensionsBasics = () => {
       backgroundColor: '#412db1',
     },
     chatBox: {
-      flex: chatBoxValue,
-      // height: 300,
+      // flex: 8,
+      height: 300,
       backgroundColor: '#f7f7f8',
       margin: 6,
       borderRadius: 35,
@@ -42,9 +51,9 @@ const FlexDimensionsBasics = () => {
   });
   return (
     <View style={styles.globalBox}>
-      <View style={styles.chatBox}>
+      <Animated.View style={styles.chatBox}>
         <ChatBox />
-      </View>
+      </Animated.View>
 
       <View style={styles.syntheticalBox}>
         <SyntheticalBar />
