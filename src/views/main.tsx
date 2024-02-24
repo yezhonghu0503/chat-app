@@ -8,13 +8,19 @@ import {
 } from 'react-native';
 import SyntheticalBar from './synthetical/SyntheticalBar';
 import ChatBox from './chatbox/chatBox';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {closeMenu} from '../store/reducers/mutual';
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 const FlexDimensionsBasics = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  const dispatch = useDispatch();
   // -----业务模块------
+  useEffect(() => {
+    dispatch(closeMenu());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // -----动画模块------
   // const {height: windowHeight} = Dimensions.get('window');
   const [chatBoxValue, setChatBoxValue] = useState(2);
