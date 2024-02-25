@@ -3,11 +3,13 @@ import {StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import InputTerminal from './InputTerminal';
 import UserMessage from './UserMessage';
+// import Login from './Login';
 const SyntheticalBar = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
   return (
     <View style={styles.main}>
       {menuStatus ? <InputTerminal /> : <UserMessage />}
+      {/* {menuStatus ? <InputTerminal /> : <Login />} */}
     </View>
   );
 };

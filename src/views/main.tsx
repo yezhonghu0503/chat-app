@@ -33,12 +33,12 @@ const FlexDimensionsBasics = () => {
   const styles = StyleSheet.create({
     globalBox: {
       flex: 1,
-      backgroundColor: '#412db1',
+      backgroundColor: '#359765',
     },
     chatBox: {
       flex: chatBoxValue,
       // height: 300,
-      backgroundColor: '#f7f7f8',
+      backgroundColor: '#1b2559',
       margin: 6,
       borderRadius: 35,
     },
