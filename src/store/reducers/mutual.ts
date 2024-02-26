@@ -4,11 +4,11 @@ const mutualSlice = createSlice({
   name: 'mutual',
   initialState: {
     isMenuStatus: false,
-    chatContents: [],
   },
   reducers: {
     openMenu: state => {
       state.isMenuStatus = true;
+      console.log(state);
     },
     closeMenu: state => {
       state.isMenuStatus = false;

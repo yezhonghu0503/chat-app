@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // useState, useEffect
 import {
   StyleSheet,
   View,
@@ -11,21 +11,19 @@ import {
 
 import {useSelector, useDispatch} from 'react-redux';
 import {openMenu} from '../../store/reducers/mutual';
+import {
+  addChatContents,
+  removeChatContents,
+} from '../../store/reducers/loaclData';
+// import Markdown from 'react-native-markdown-display';
+// import {MarkdownIt} from 'react-native-markdown-display';
+// import marked from 'marked';
+// import RenderHTML from 'react-native-render-html';
+
 const ChatBox = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  const chatMessages = useSelector((state: any) => state.local.chatContents);
   const dispatch = useDispatch();
-  const data = [
-    {key: 1, role: 'user', content: 'RN滚动组件有哪些？'},
-    {
-      key: 2,
-      role: 'system',
-      content:
-        'React Native 提供了多种滚动组件，常用的包括 ScrollView 和 FlatList。ScrollView：ScrollView 可以包含多个子组件，并且能够滚动显示所有子组件。适用于少量的静态数据或者子组件数量较少的情况。',
-    },
-    {key: 3, role: 'user', content: '内容1'},
-
-    // 更多数据
-  ];
   const styles = StyleSheet.create({
     main: {
       flex: 1,
@@ -118,6 +116,40 @@ const ChatBox = () => {
       marginRight: 5,
     },
   });
+  // const chatMarkdown = {
+  //   text: {
+  //     color: 'white',
+  //   },
+  // };
+  // const [text, setText] = useState('');
+  // const originalText = `# Heading 1
+
+  // ## Heading 2
+
+  // This is some **bold** and *italic* text.
+
+  // \`\`\` function helloWorld() { console.log("Hello, world!");  } \`\`\`
+
+  // `;
+  // const delay = 50; // 输出间隔时间
+
+  // useEffect(() => {
+  //   let index = 0;
+  //   const intervalId = setInterval(() => {
+  //     setText(originalText.substring(0, index)); // 从原始文本中截取已输出的部分
+  //     index += 4;
+
+  //     if (index > originalText.length) {
+  //       clearInterval(intervalId); // 文本输出完毕，清除定时器
+  //     }
+  //   }, delay);
+
+  //   return () => {
+  //     clearInterval(intervalId); // 组件卸载时清除定时器
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   return (
     <View style={styles.main}>
       {/* <Image
@@ -141,7 +173,7 @@ const ChatBox = () => {
             <Text style={styles.helpTips}>How can I help you today?</Text>
           </View> */}
           <FlatList
-            data={data}
+            data={chatMessages}
             renderItem={({item}) => (
               <View
                 key={item.key}
@@ -158,15 +190,17 @@ const ChatBox = () => {
                     style={styles.chatUserAva}
                     source={require('../synthetical/img/avatar.png')}
                   />
-                  {/* eslint-disable-next-line react-native/no-inline-styles */}
-                  <Text style={{color: item.role === 'user' ? '' : 'white'}}>
+                  {}
+                  <Text
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    style={{color: item.role === 'user' ? 'black' : 'white'}}>
                     {item.role === 'user' ? '你' : 'ChatGPT'}
                   </Text>
                 </View>
-                {/* eslint-disable-next-line react-native/no-inline-styles */}
-                <Text style={{color: item.role === 'user' ? '' : 'white'}}>
-                  {item.content}
-                </Text>
+                {/* <View style={{color: item.role === 'user' ? '' : 'white'}}> */}
+                {/* <MarkdownIt style={chatMarkdown}>{item.content}</MarkdownIt> */}
+                {/* <RenderHtml contentWidth={300} source={{html: htmlContent}} /> */}
+                {/* </View> */}
               </View>
             )}
           />
@@ -175,6 +209,37 @@ const ChatBox = () => {
           style={styles.chatTouchReturn}
           onPress={() => {
             dispatch(openMenu());
+            dispatch(removeChatContents());
+            // console.log(chatMessages);
+            // fetch('http://43.156.237.21:8999/chat/talks', {
+            //   method: 'post',
+            //   headers: {
+            //     ContentType: 'application/json',
+            //     Authorization:
+            //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1Z2llZ2llIiwiaWF0IjoxNzA4OTMxMDI3LCJleHAiOjE3MDg5MzQ2Mjd9.MjpuLMRrQT9ICuQ4jBpxAm3GkT07i5TufJiBBQNvPm8',
+            //   },
+            //   body: JSON.stringify({
+            //     messages: [
+            //       {
+            //         role: 'user',
+            //         content:
+            //           'react native处理markdown字符串并且能处理其中代码块的库',
+            //       },
+            //     ],
+            //   }),
+            // }).then((res: any) => {
+            //   console.log(typeof res);
+            //   console.log(res);
+            //   dispatch(addChatContents({key: 2, role: 'system', content: res}));
+            // });
+            dispatch(
+              addChatContents({
+                key: 1,
+                role: 'system',
+                content:
+                  '# Heading 1 \n\n ## Heading 2 \n\n This is some **bold** and *italic* text. \n\n ``` function helloWorld() { console.log("Hello, world!");  } ``` ',
+              }),
+            );
           }}>
           <Image
             style={styles.chatTouchReturnPic}

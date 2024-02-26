@@ -1,5 +1,6 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import mutualReducer from './reducers/mutual';
+import locallReducer from './reducers/loaclData';
 import {
   persistReducer,
   persistStore,
@@ -21,6 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   mutual: mutualReducer,
+  local: locallReducer,
   // 有新的 slice 就往这里加
 });
 
