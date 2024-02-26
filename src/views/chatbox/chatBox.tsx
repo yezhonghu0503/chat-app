@@ -11,14 +11,14 @@ import {
 
 import {useSelector, useDispatch} from 'react-redux';
 import {openMenu} from '../../store/reducers/mutual';
-import {
-  addChatContents,
-  removeChatContents,
-} from '../../store/reducers/loaclData';
-// import Markdown from 'react-native-markdown-display';
-// import {MarkdownIt} from 'react-native-markdown-display';
-// import marked from 'marked';
-// import RenderHTML from 'react-native-render-html';
+// import {
+//   addChatContents,
+//   removeChatContents,
+// } from '../../store/reducers/loaclData';
+import Markdown from 'react-native-markdown-display';
+import CodeHighlighter from 'react-native-code-highlighter';
+import {atomOneDarkReasonable} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+// import axios from 'axios';
 
 const ChatBox = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
@@ -115,12 +115,19 @@ const ChatBox = () => {
       borderRadius: 10,
       marginRight: 5,
     },
+    codeContainer: {
+      padding: 16,
+      minWidth: '100%',
+    },
+    text: {
+      fontSize: 16,
+    },
   });
-  // const chatMarkdown = {
-  //   text: {
-  //     color: 'white',
-  //   },
-  // };
+  const chatMarkdown = {
+    text: {
+      color: 'white',
+    },
+  };
   // const [text, setText] = useState('');
   // const originalText = `# Heading 1
 
@@ -149,7 +156,18 @@ const ChatBox = () => {
   //   };
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
-
+  const renderCodeBlock = ({value}: any) => {
+    console.log(value);
+    return (
+      <CodeHighlighter
+        hljsStyle={atomOneDarkReasonable}
+        containerStyle={styles.codeContainer}
+        textStyle={styles.text}
+        language="typescript">
+        {value}
+      </CodeHighlighter>
+    );
+  };
   return (
     <View style={styles.main}>
       {/* <Image
@@ -198,7 +216,13 @@ const ChatBox = () => {
                   </Text>
                 </View>
                 {/* <View style={{color: item.role === 'user' ? '' : 'white'}}> */}
-                {/* <MarkdownIt style={chatMarkdown}>{item.content}</MarkdownIt> */}
+                <Markdown
+                  rules={{
+                    code_block: renderCodeBlock,
+                  }}
+                  style={chatMarkdown}>
+                  {item.content}
+                </Markdown>
                 {/* <RenderHtml contentWidth={300} source={{html: htmlContent}} /> */}
                 {/* </View> */}
               </View>
@@ -209,37 +233,29 @@ const ChatBox = () => {
           style={styles.chatTouchReturn}
           onPress={() => {
             dispatch(openMenu());
-            dispatch(removeChatContents());
+            // dispatch(removeChatContents());
             // console.log(chatMessages);
-            // fetch('http://43.156.237.21:8999/chat/talks', {
-            //   method: 'post',
-            //   headers: {
-            //     ContentType: 'application/json',
-            //     Authorization:
-            //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1Z2llZ2llIiwiaWF0IjoxNzA4OTMxMDI3LCJleHAiOjE3MDg5MzQ2Mjd9.MjpuLMRrQT9ICuQ4jBpxAm3GkT07i5TufJiBBQNvPm8',
-            //   },
-            //   body: JSON.stringify({
-            //     messages: [
-            //       {
-            //         role: 'user',
-            //         content:
-            //           'react native处理markdown字符串并且能处理其中代码块的库',
-            //       },
-            //     ],
-            //   }),
-            // }).then((res: any) => {
-            //   console.log(typeof res);
-            //   console.log(res);
-            //   dispatch(addChatContents({key: 2, role: 'system', content: res}));
-            // });
-            dispatch(
-              addChatContents({
-                key: 1,
-                role: 'system',
-                content:
-                  '# Heading 1 \n\n ## Heading 2 \n\n This is some **bold** and *italic* text. \n\n ``` function helloWorld() { console.log("Hello, world!");  } ``` ',
-              }),
-            );
+            // const headers = {
+            //   ContentType: 'application/json', // 设置 Content-Type 为 JSON
+            //   Authorization:
+            //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1Z2llZ2llIiwiaWF0IjoxNzA4OTY0OTI5LCJleHAiOjE3MDg5Njg1Mjl9.JWFgKCmHy4NwX3-CWYGgaYhhzsVjylXoMwX_dV-aAa4', // 设置 Authorization 头，如果需要的话
+            // };
+            // const data = {
+            //   messages: [
+            //     {
+            //       role: 'user',
+            //       content: 'axios发送一个post请求',
+            //     },
+            //   ],
+            // };
+            // axios
+            //   .post('http://43.156.237.21:8999/chat/talks', data, headers)
+            //   .then(res => {
+            //     console.log(res.data);
+            //   })
+            //   .catch(err => {
+            //     console.log(err);
+            //   });
           }}>
           <Image
             style={styles.chatTouchReturnPic}
