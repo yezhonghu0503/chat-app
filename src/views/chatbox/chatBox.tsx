@@ -18,10 +18,9 @@ import Markdown from 'react-native-markdown-display';
 import CodeHighlighter from 'react-native-code-highlighter';
 import {atomOneDarkReasonable} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import {chatBoxstyles as styles} from './chatBoxStyles';
-// import axios from 'axios';
 
 const ChatBox = () => {
-  // const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  const {menuStatus, isVerified} = useSelector((state: any) => state.mutual);
   const chatMessages = useSelector((state: any) => state.local.chatContents);
   const dispatch = useDispatch();
 
@@ -93,175 +92,87 @@ const ChatBox = () => {
   };
   return (
     <View style={styles.main}>
-      {/* <Image
-          source={require('./img/bg.png')}
-          style={{...styles.loginBackground,display:menuStatus ? 'none' : undefined}}
-        /> */}
-      <View style={styles.chatTouch}>
-        <View style={styles.chatHearder}>
-          <Text style={styles.chatHearderText}>GPT-4 Turbo</Text>
-          <Image
-            style={styles.chatHearderImage}
-            source={require('./img/menu.png')}
-          />
-        </View>
-        <View style={styles.initalPage}>
-          {chatMessages.length ? (
-            <FlatList
-              // style={styles.flatList}
-              data={[{key: 1, role: 'system', content: ''}]}
-              renderItem={({item}) => {
-                return (
-                  <View
-                    key={item.key}
-                    // eslint-disable-next-line react-native/no-inline-styles
-                    style={{
-                      ...styles.chatUser,
-                      backgroundColor:
-                        item.role === 'user' ? 'white' : '#171718',
-                    }}>
-                    <View
-                      style={{
-                        ...styles.chatUserTit,
-                      }}>
-                      <Image
-                        style={styles.chatUserAva}
-                        source={require('../synthetical/img/avatar.png')}
-                      />
-                      {}
-                      <Text
-                        // eslint-disable-next-line react-native/no-inline-styles
-                        style={{
-                          color: item.role === 'user' ? 'black' : 'white',
-                        }}>
-                        {item.role === 'user' ? '你' : 'ChatGPT'}
-                      </Text>
-                    </View>
-                    <Markdown rules={rules} style={chatMarkdown}>
-                      {text}
-                    </Markdown>
-                  </View>
-                );
-              }}
+      {isVerified ? (
+        <View style={styles.chatTouch}>
+          <View style={styles.chatHearder}>
+            <Text style={styles.chatHearderText}>GPT-4 Turbo</Text>
+            <Image
+              style={styles.chatHearderImage}
+              source={require('./img/menu.png')}
             />
-          ) : (
-            // <FlatList
-            //   data={chatMessages}
-            //   renderItem={({item}) => (
-            //     <View
-            //       key={item.key}
-            //       // eslint-disable-next-line react-native/no-inline-styles
-            //       style={{
-            //         ...styles.chatUser,
-            //         backgroundColor: item.role === 'user' ? 'white' : '#171718',
-            //       }}>
-            //       <View
-            //         style={{
-            //           ...styles.chatUserTit,
-            //         }}>
-            //         <Image
-            //           style={styles.chatUserAva}
-            //           source={require('../synthetical/img/avatar.png')}
-            //         />
-            //         {}
-            //         <Text
-            //           // eslint-disable-next-line react-native/no-inline-styles
-            //           style={{color: item.role === 'user' ? 'black' : 'white'}}>
-            //           {item.role === 'user' ? '你' : 'ChatGPT'}
-            //         </Text>
-            //       </View>
-            //       {/* <View style={{color: item.role === 'user' ? '' : 'white'}}> */}
-            //       <Markdown
-            //         rules={{
-            //           code_block: renderCodeBlock,
-            //         }}
-            //         style={chatMarkdown}>
-            //         {item.content}
-            //       </Markdown>
-            //       {/* <RenderHtml contentWidth={300} source={{html: htmlContent}} /> */}
-            //       {/* </View> */}
-            //     </View>
-            //   )}
-            // />
-            // <ScrollView>
-            //   {/* {chatMessages.map((item: any) => { */}
-            //   <Markdown
-            //     rules={{
-            //       code_block: renderCodeBlock,
-            //     }}
-            //     style={chatMarkdown}>
-            //     {copy}
-            //   </Markdown>
-            //   {/* })} */}
-            // </ScrollView>
-            <View style={styles.initalHelp}>
-              <Image
-                style={styles.initalHelpLogo}
-                source={require('../synthetical/img/logo.png')}
+          </View>
+          <View style={styles.initalPage}>
+            {chatMessages.length ? (
+              <FlatList
+                // style={styles.flatList}
+                data={[{key: 1, role: 'system', content: ''}]}
+                renderItem={({item}) => {
+                  return (
+                    <View
+                      key={item.key}
+                      // eslint-disable-next-line react-native/no-inline-styles
+                      style={{
+                        ...styles.chatUser,
+                        backgroundColor:
+                          item.role === 'user' ? 'white' : '#171718',
+                      }}>
+                      <View
+                        style={{
+                          ...styles.chatUserTit,
+                        }}>
+                        <Image
+                          style={styles.chatUserAva}
+                          source={require('../synthetical/img/avatar.png')}
+                        />
+                        {}
+                        <Text
+                          // eslint-disable-next-line react-native/no-inline-styles
+                          style={{
+                            color: item.role === 'user' ? 'black' : 'white',
+                          }}>
+                          {item.role === 'user' ? '你' : 'ChatGPT'}
+                        </Text>
+                      </View>
+                      <Markdown rules={rules} style={chatMarkdown}>
+                        {text}
+                      </Markdown>
+                    </View>
+                  );
+                }}
               />
-              <Text style={styles.helpTips}>How can I help you today?</Text>
-            </View>
-          )}
+            ) : (
+              <View style={styles.initalHelp}>
+                <Image
+                  style={styles.initalHelpLogo}
+                  source={require('../synthetical/img/logo.png')}
+                />
+                <Text style={styles.helpTips}>How can I help you today?</Text>
+              </View>
+            )}
+          </View>
+          <TouchableOpacity
+            style={styles.chatTouchReturn}
+            onPress={() => {
+              dispatch(openMenu());
+              flowOutputMd();
+            }}>
+            <Image
+              style={styles.chatTouchReturnPic}
+              borderRadius={15}
+              source={require('./img/remove.png')}
+            />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.chatTouchReturn}
-          onPress={() => {
-            dispatch(openMenu());
-            flowOutputMd();
-            // dispatch(removeChatContents());
-            // console.log(chatMessages);
-            // var data = JSON.stringify({
-            //   messages: [
-            //     {
-            //       role: 'user',
-            //       content: 'axios 发送一个post请求',
-            //     },
-            //   ],
-            // });
-            // dispatch(
-            //   addChatContents({
-            //     key: chatMessages.length,
-            //     role: 'user',
-            //     content: 'axios 发送一个post请求',
-            //   }),
-            // );
-            // var config = {
-            //   method: 'post',
-            //   url: 'http://43.156.237.21:8999/chat/talks',
-            //   headers: {
-            //     Authorization:
-            //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imh1Z2llZ2llIiwiaWF0IjoxNzA5MDAwMDMyLCJleHAiOjE3MDkwMDM2MzJ9.Ko0JoRIoVBIwukFxgU7YS-Fk09w_8fQD1gP23a-GDhw',
-            //     'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
-            //     'Content-Type': 'application/json',
-            //     Accept: '*/*',
-            //     Host: '43.156.237.21:8999',
-            //     Connection: 'keep-alive',
-            //   },
-            //   data: data,
-            // };
-
-            // axios(config)
-            //   .then(function (response) {
-            //     console.log(JSON.stringify(response.data));
-            //     dispatch(
-            //       addChatContents({
-            //         key: chatMessages.length,
-            //         role: 'system',
-            //         content: JSON.stringify(response.data),
-            //       }),
-            //     );
-            //   })
-            //   .catch(function (error) {
-            //     console.log(error);
-            //   });
-          }}>
-          <Image
-            style={styles.chatTouchReturnPic}
-            borderRadius={15}
-            source={require('./img/remove.png')}
-          />
-        </TouchableOpacity>
-      </View>
+      ) : (
+        <Image
+          source={require('./img/bg.png')}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            ...styles.loginBackground,
+            display: menuStatus ? 'none' : undefined,
+          }}
+        />
+      )}
     </View>
   );
 };
