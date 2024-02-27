@@ -100,4 +100,14 @@ export const chatBoxstyles = StyleSheet.create({
   //     width:
   //       Dimensions.get('window').width - Dimensions.get('window').width * 0.1,
   //   },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  marquee: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'red',
+  },
 });

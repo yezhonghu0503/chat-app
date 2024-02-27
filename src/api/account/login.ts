@@ -1,4 +1,4 @@
-import netAxios from 'api';
+import netAxios from '../index';
 
 type User = {
   passphrase: string;
@@ -10,5 +10,5 @@ export const getUserStatus = () => {
 };
 // 用户校验
 export const postUserVerify = (data: User) => {
-  return netAxios.post('/chat/talks', data, {});
+  return netAxios.post('/api/login', data, {});
 };

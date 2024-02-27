@@ -90,6 +90,7 @@ const ChatBox = () => {
       );
     },
   };
+  //   const scrollingText = '这是一个动态滚动的文字';
   return (
     <View style={styles.main}>
       {isVerified ? (

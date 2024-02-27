@@ -21,6 +21,7 @@
     "react-native-markdown-display": "^7.0.2",
     "react-native-render-html": "^6.3.4",
     "react-native-svg": "^14.1.0",
+    "react-native-toast-message": "^2.2.0",
     "react-redux": "^9.1.0",
     "react-syntax-highlighter": "^15.5.0",
     "redux-persist": "^6.0.0"

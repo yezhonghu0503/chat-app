@@ -9,21 +9,24 @@ import {
 import SyntheticalBar from './synthetical/SyntheticalBar';
 import ChatBox from './chatbox/chatBox';
 import {useSelector, useDispatch} from 'react-redux';
-import {
-  closeMenu,
-  succeedVerified,
-  failVerified,
-} from '../store/reducers/mutual';
-import {getUserStatus} from 'api/account/login';
+import {closeMenu} from '../store/reducers/mutual';
+// import {succeedVerified, failVerified} from '../store/reducers/account';
+// import {getUserStatus} from '../api/account/login';
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 const FlexDimensionsBasics = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
   const dispatch = useDispatch();
+  const token = useSelector((state: any) => state.account.token);
+
   const userStatus = async () => {
-    const res = await getUserStatus();
-    dispatch(res.data.status ? succeedVerified() : failVerified());
+    if (token === '') {
+      return;
+    }
+    // const res = await getUserStatus();
+    // console.log(res);
+    // dispatch(res.data.status ? succeedVerified() : failVerified());
   };
   // -----业务模块------
   useEffect(() => {

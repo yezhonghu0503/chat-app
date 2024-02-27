@@ -1,4 +1,4 @@
-import netAxios from 'api';
+import netAxios from '../index';
 
 type MessageContent = {
   role: string;

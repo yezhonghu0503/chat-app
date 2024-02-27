@@ -13,6 +13,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './src/store';
 import Main from './src/views/main';
+import Toast from 'react-native-toast-message';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,6 +35,7 @@ function App(): React.JSX.Element {
           <Main />
         </SafeAreaView>
       </PersistGate>
+      <Toast />
     </Provider>
   );
 }

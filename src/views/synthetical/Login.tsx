@@ -8,16 +8,42 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import {postUserVerify} from '../../api/account/login';
+import {useDispatch} from 'react-redux';
+import {addToken, succeedVerified} from '../../store/reducers/account';
+import Toast from 'react-native-toast-message';
 
 const Login = () => {
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
+  const [userInputData, setUserInputData] = useState({
+    username: '',
+    password: '',
+  });
+  const dispatch = useDispatch();
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Welcome',
+      text2: 'You have completed verification! 👋',
+    });
+  };
+  const userVerify = async () => {
+    const res = await postUserVerify({passphrase: userInputData.password});
+    if (res.data.status === 200) {
+      showToast();
+      dispatch(addToken(res.data.token));
+      dispatch(succeedVerified());
+    }
+  };
   return (
     <View style={styles.main}>
       <View style={styles.logo}>
         <Image style={styles.logoPic} source={require('./img/logo.png')} />
-        <Text style={styles.loginTit}>Luna AI</Text>
+        <Image
+          style={styles.logoPicTit}
+          source={require('./img/logoTit.png')}
+        />
       </View>
       <Text style={styles.logotips}>Sign In to continue</Text>
       {}
@@ -27,6 +53,10 @@ const Login = () => {
         <Text style={styles.usernameTit}>Username</Text>
         <View>
           <TextInput
+            value={userInputData.username}
+            onChangeText={(input: any) => {
+              setUserInputData({...userInputData, username: input});
+            }}
             onFocus={() => {
               setIsUsernameFocused(true);
             }}
@@ -42,6 +72,11 @@ const Login = () => {
         style={{...styles.username, borderWidth: isPasswordFocused ? 1 : 0}}>
         <Text style={styles.usernameTit}>Verification Code</Text>
         <TextInput
+          secureTextEntry={true}
+          value={userInputData.password}
+          onChangeText={(input: any) => {
+            setUserInputData({...userInputData, password: input});
+          }}
           onFocus={() => {
             setIsPasswordFocused(true);
           }}
@@ -50,7 +85,11 @@ const Login = () => {
           }}
         />
       </View>
-      <TouchableOpacity style={styles.signButton}>
+      <TouchableOpacity
+        onPress={() => {
+          userVerify();
+        }}
+        style={styles.signButton}>
         <Text style={styles.signButtonText}>Sign In</Text>
       </TouchableOpacity>
       <Text style={styles.signNoCode}>No verification code?</Text>
@@ -72,21 +111,22 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     marginTop: 10,
+    alignItems: 'center',
   },
   logoPic: {
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
   },
-  loginTit: {
-    fontSize: 30,
-    fontWeight: '800',
-    color: '#333333',
+  logoPicTit: {
+    width: 100,
+    height: 26,
     marginLeft: 5,
   },
   logotips: {
     fontSize: 18,
     fontWeight: '500',
     color: '#3f3b3b',
+    // marginTop: 10,
   },
   username: {
     width:
