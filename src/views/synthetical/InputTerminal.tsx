@@ -9,11 +9,17 @@ import {
 } from 'react-native';
 import {closeMenu, openMenu} from '../../store/reducers/mutual';
 import {useDispatch, useSelector} from 'react-redux';
+import {
+  addChatContents,
+  // removeChatContents,
+} from '../../store/reducers/loaclData';
+import {postChatContent} from '../../api/apply/chat';
 
 const InputTerminal = () => {
   const [mesInput, setMesInput] = useState('');
   const dispatch = useDispatch();
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+  const chatContents = useSelector((state: any) => state.local.chatContents);
   return (
     <View style={styles.unitBox}>
       <View style={styles.syntheticalBoxInput}>
@@ -21,7 +27,7 @@ const InputTerminal = () => {
           multiline={true} // 设置为多行模式
           numberOfLines={4} // 设置多行的行数
           value={mesInput}
-          onChange={(value: any) => {
+          onChangeText={(value: any) => {
             setMesInput(value);
           }}
           // eslint-disable-next-line react-native/no-inline-styles
@@ -30,7 +36,22 @@ const InputTerminal = () => {
           placeholderTextColor="#F5F5F5"
         />
         {/* <Text>{String(menuStatus)}</Text> */}
-        <Image source={require('./img/send.png')} />
+        <TouchableOpacity
+          onPress={async () => {
+            if (mesInput) {
+              dispatch(
+                addChatContents({
+                  role: 'user',
+                  content: mesInput,
+                }),
+              );
+              setMesInput('');
+              const res = await postChatContent({messages: chatContents});
+              console.log(res);
+            }
+          }}>
+          <Image source={require('./img/send.png')} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.syntheticalBoxMenu}>

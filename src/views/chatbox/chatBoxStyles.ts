@@ -50,8 +50,8 @@ export const chatBoxstyles = StyleSheet.create({
     marginTop: 100,
   },
   initalHelpLogo: {
-    width: 40,
-    height: 40,
+    width: 80,
+    height: 80,
   },
   helpTips: {
     color: 'white',
@@ -70,7 +70,6 @@ export const chatBoxstyles = StyleSheet.create({
     width:
       Dimensions.get('window').width - Dimensions.get('window').width * 0.1,
     marginLeft: 10,
-    backgroundColor: 'white',
     borderRadius: 10,
     padding: 5,
     paddingLeft: 10,

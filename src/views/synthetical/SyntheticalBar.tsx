@@ -6,7 +6,7 @@ import UserMessage from './UserMessage';
 import Login from './Login';
 const SyntheticalBar = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
-  const isVerified = useSelector((state: any) => state.mutual.isVerified);
+  const isVerified = useSelector((state: any) => state.account.isVerified);
   return (
     <View style={styles.main}>
       {menuStatus ? (

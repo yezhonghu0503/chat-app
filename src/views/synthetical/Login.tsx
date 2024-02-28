@@ -16,6 +16,7 @@ import Toast from 'react-native-toast-message';
 const Login = () => {
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  // const state = useSelector((state: any) => state);
   const [userInputData, setUserInputData] = useState({
     username: '',
     password: '',
@@ -31,6 +32,7 @@ const Login = () => {
   const userVerify = async () => {
     const res = await postUserVerify({passphrase: userInputData.password});
     if (res.data.status === 200) {
+      // console.log(res.data.token);
       showToast();
       dispatch(addToken(res.data.token));
       dispatch(succeedVerified());

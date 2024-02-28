@@ -4,8 +4,6 @@ const locallSlice = createSlice({
   name: 'local',
   initialState: {
     chatContents: [],
-    isVerified: false,
-    token: '',
   },
   reducers: {
     addChatContents: (state: any, actions) => {

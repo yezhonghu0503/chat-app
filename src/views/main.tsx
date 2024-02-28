@@ -10,7 +10,8 @@ import SyntheticalBar from './synthetical/SyntheticalBar';
 import ChatBox from './chatbox/chatBox';
 import {useSelector, useDispatch} from 'react-redux';
 import {closeMenu} from '../store/reducers/mutual';
-// import {succeedVerified, failVerified} from '../store/reducers/account';
+import {getUserStatus} from '../api/account/login';
+import {succeedVerified, failVerified} from '../store/reducers/account';
 // import {getUserStatus} from '../api/account/login';
 
 UIManager.setLayoutAnimationEnabledExperimental &&
@@ -24,9 +25,10 @@ const FlexDimensionsBasics = () => {
     if (token === '') {
       return;
     }
-    // const res = await getUserStatus();
-    // console.log(res);
-    // dispatch(res.data.status ? succeedVerified() : failVerified());
+    // 登录状态校验
+    const res = await getUserStatus();
+
+    dispatch(res.data.status ? succeedVerified() : failVerified());
   };
   // -----业务模块------
   useEffect(() => {
