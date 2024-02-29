@@ -27,7 +27,6 @@ const FlexDimensionsBasics = () => {
     }
     // 登录状态校验
     const res = await getUserStatus();
-
     dispatch(res.data.status ? succeedVerified() : failVerified());
   };
   // -----业务模块------

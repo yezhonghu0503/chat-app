@@ -29,8 +29,16 @@ const Login = () => {
       text2: 'You have completed verification! 👋',
     });
   };
+  const debugShowToast = (error: any) => {
+    Toast.show({
+      type: 'error',
+      text1: 'error',
+      text2: error,
+    });
+  };
   const userVerify = async () => {
     const res = await postUserVerify({passphrase: userInputData.password});
+    debugShowToast(res.data);
     if (res.data.status === 200) {
       // console.log(res.data.token);
       showToast();
