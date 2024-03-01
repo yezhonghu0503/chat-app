@@ -4,7 +4,7 @@ import {removeToken} from '../store/reducers/account';
 const state = store.getState();
 const netAxios = axios.create({
   baseURL: 'http://43.156.237.21:8999',
-  timeout: 5000,
+  timeout: 60 * 1000,
   headers: {
     Authorization: `Bearer ${state.account.token}`,
   },

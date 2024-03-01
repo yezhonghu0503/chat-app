@@ -47,7 +47,14 @@ const InputTerminal = () => {
               );
               setMesInput('');
               const res = await postChatContent({messages: chatContents});
-              console.log(res);
+              if (res) {
+                dispatch(
+                  addChatContents({
+                    role: 'system',
+                    content: res.data,
+                  }),
+                );
+              }
             }
           }}>
           <Image source={require('./img/send.png')} />
