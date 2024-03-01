@@ -15,6 +15,7 @@ import {openMenu} from '../../store/reducers/mutual';
 //   removeChatContents,
 // } from '../../store/reducers/loaclData';
 // import {failVerified, removeToken} from '../../store/reducers/account';
+import {removeChatContents} from '../../store/reducers/loaclData';
 import Markdown from 'react-native-markdown-display';
 import CodeHighlighter from 'react-native-code-highlighter';
 import {atomOneDarkReasonable} from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -139,6 +140,21 @@ const ChatBox = () => {
                           {item.content}
                         </Markdown>
                       )}
+                      <View style={styles.itemAction}>
+                        <Image
+                          style={styles.itemDelete}
+                          source={require('./img/refresh.png')}
+                        />
+                        <TouchableOpacity
+                          onPress={() => {
+                            dispatch(removeChatContents());
+                          }}>
+                          <Image
+                            style={styles.itemDelete}
+                            source={require('./img/delete.png')}
+                          />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   );
                 }}

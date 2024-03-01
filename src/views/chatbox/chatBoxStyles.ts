@@ -109,4 +109,15 @@ export const chatBoxstyles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'red',
   },
+  itemAction: {
+    flex: 1,
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  itemDelete: {
+    width: 15,
+    height: 15,
+    marginLeft: 10,
+  },
 });
