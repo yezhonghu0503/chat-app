@@ -23,6 +23,7 @@ const FlexDimensionsBasics = () => {
 
   const userStatus = async () => {
     if (token === '') {
+      dispatch(failVerified());
       return;
     }
     // 登录状态校验

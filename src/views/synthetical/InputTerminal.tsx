@@ -45,16 +45,17 @@ const InputTerminal = () => {
                   content: mesInput,
                 }),
               );
-              setMesInput('');
-              const res = await postChatContent({messages: chatContents});
-              if (res) {
-                dispatch(
-                  addChatContents({
-                    role: 'system',
-                    content: res.data,
-                  }),
-                );
-              }
+              console.log(chatContents);
+              // setMesInput('');
+              // const res = await postChatContent({messages: chatContents});
+              // if (res) {
+              //   dispatch(
+              //     addChatContents({
+              //       role: 'system',
+              //       content: res.data,
+              //     }),
+              //   );
+              // }
             }
           }}>
           <Image source={require('./img/send.png')} />

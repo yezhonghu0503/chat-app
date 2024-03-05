@@ -7,7 +7,10 @@ const locallSlice = createSlice({
   },
   reducers: {
     addChatContents: (state: any, actions) => {
-      state.chatContents.push(actions.payload);
+      return {
+        ...state,
+        chatContents: [...state.chatContents, actions.payload],
+      };
     },
     removeChatContents: (state: any) => {
       state.chatContents.pop();
