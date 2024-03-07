@@ -38,6 +38,9 @@ const ChatBox = () => {
       color: 'white',
       backgroundColor: 'rgb(39,43,53)',
     },
+    list_item: {
+      color: 'white',
+    },
   };
   // const [text, setText] = useState('');
   // const delay = 50;

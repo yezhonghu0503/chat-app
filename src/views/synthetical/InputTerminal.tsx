@@ -14,12 +14,13 @@ import {
   // removeChatContents,
 } from '../../store/reducers/loaclData';
 import {postChatContent} from '../../api/apply/chat';
+import {store} from '../../store/index';
 
 const InputTerminal = () => {
   const [mesInput, setMesInput] = useState('');
   const dispatch = useDispatch();
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
-  const chatContents = useSelector((state: any) => state.local.chatContents);
+  // const chatContents = useSelector((state: any) => state.local.chatContents);
   return (
     <View style={styles.unitBox}>
       <View style={styles.syntheticalBoxInput}>
@@ -45,17 +46,19 @@ const InputTerminal = () => {
                   content: mesInput,
                 }),
               );
-              console.log(chatContents);
-              // setMesInput('');
-              // const res = await postChatContent({messages: chatContents});
-              // if (res) {
-              //   dispatch(
-              //     addChatContents({
-              //       role: 'system',
-              //       content: res.data,
-              //     }),
-              //   );
-              // }
+              const state = store.getState();
+              setMesInput('');
+              const res = await postChatContent({
+                messages: state.local.chatContents,
+              });
+              if (res) {
+                dispatch(
+                  addChatContents({
+                    role: 'system',
+                    content: res.data,
+                  }),
+                );
+              }
             }
           }}>
           <Image source={require('./img/send.png')} />
