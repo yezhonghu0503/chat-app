@@ -10,7 +10,11 @@ import {
 } from 'react-native';
 import {postUserVerify} from '../../api/account/login';
 import {useDispatch} from 'react-redux';
-import {addToken, succeedVerified} from '../../store/reducers/account';
+import {
+  addToken,
+  removeToken,
+  succeedVerified,
+} from '../../store/reducers/account';
 import Toast from 'react-native-toast-message';
 
 const Login = () => {
@@ -40,8 +44,8 @@ const Login = () => {
     const res = await postUserVerify({passphrase: userInputData.password});
     debugShowToast(res.data);
     if (res.data.status === 200) {
-      // console.log(res.data.token);
       showToast();
+      dispatch(removeToken());
       dispatch(addToken(res.data.token));
       dispatch(succeedVerified());
     }

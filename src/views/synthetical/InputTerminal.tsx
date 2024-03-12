@@ -15,6 +15,7 @@ import {
 } from '../../store/reducers/loaclData';
 import {postChatContent} from '../../api/apply/chat';
 import {store} from '../../store/index';
+import {addTempChatContentBuffer} from '../../store/reducers/buffer';
 
 const InputTerminal = () => {
   const [mesInput, setMesInput] = useState('');
@@ -55,9 +56,10 @@ const InputTerminal = () => {
                 dispatch(
                   addChatContents({
                     role: 'system',
-                    content: res.data,
+                    content: '',
                   }),
                 );
+                dispatch(addTempChatContentBuffer(res.data));
               }
             }
           }}>
