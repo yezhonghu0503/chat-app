@@ -11,6 +11,7 @@ import {closeMenu, openMenu} from '../../store/reducers/mutual';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addChatContents,
+  editChatContent,
   // removeChatContents,
 } from '../../store/reducers/loaclData';
 import {postChatContent} from '../../api/apply/chat';
@@ -47,19 +48,25 @@ const InputTerminal = () => {
                   content: mesInput,
                 }),
               );
+              dispatch(
+                addChatContents({
+                  role: 'system',
+                  content: '',
+                }),
+              );
               const state = store.getState();
               setMesInput('');
-              const res = await postChatContent({
-                messages: state.local.chatContents,
-              });
-              if (res) {
-                dispatch(
-                  addChatContents({
-                    role: 'system',
-                    content: '',
-                  }),
-                );
-                dispatch(addTempChatContentBuffer(res.data));
+              try {
+                const res = await postChatContent({
+                  messages: state.local.chatContents,
+                });
+                if (res.data && !res.data.code) {
+                  dispatch(addTempChatContentBuffer(res.data));
+                } else {
+                  dispatch(editChatContent(res.data.msg));
+                }
+              } catch (error) {
+                dispatch(editChatContent(String(error)));
               }
             }
           }}>

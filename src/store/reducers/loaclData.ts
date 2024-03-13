@@ -15,8 +15,15 @@ const locallSlice = createSlice({
     removeChatContents: (state: any) => {
       state.chatContents.pop();
     },
+    editChatContent: (state: any, actions) => {
+      const len = state.chatContents.length - 1;
+      if (state.chatContents[len].content === '') {
+        state.chatContents[len].content = actions.payload;
+      }
+    },
   },
 });
 
-export const {addChatContents, removeChatContents} = locallSlice.actions;
+export const {addChatContents, removeChatContents, editChatContent} =
+  locallSlice.actions;
 export default locallSlice.reducer;

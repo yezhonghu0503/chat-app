@@ -15,11 +15,15 @@ import {openMenu} from '../../store/reducers/mutual';
 //   removeChatContents,
 // } from '../../store/reducers/loaclData';
 // import {failVerified, removeToken} from '../../store/reducers/account';
-import {removeChatContents} from '../../store/reducers/loaclData';
+import {
+  editChatContent,
+  removeChatContents,
+} from '../../store/reducers/loaclData';
 import Markdown from 'react-native-markdown-display';
 import CodeHighlighter from 'react-native-code-highlighter';
 import {atomOneDarkReasonable} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import {chatBoxstyles as styles} from './chatBoxStyles';
+import {clearTempChatContentBuffer} from '../../store/reducers/buffer';
 
 const ChatBox = () => {
   const {menuStatus} = useSelector((state: any) => state.mutual);
@@ -58,6 +62,9 @@ const ChatBox = () => {
 
       if (index > content.length) {
         clearInterval(intervalId); // 文本输出完毕，清除定时器
+        dispatch(editChatContent(content));
+        dispatch(clearTempChatContentBuffer());
+        setChatContentBuffer('');
       }
     }, delay);
   };
@@ -66,8 +73,10 @@ const ChatBox = () => {
     // store先构建一个空字符content
     // FlatList检测空字符后触发缓冲区
     // useEffect检测空字符content，往缓冲区中动态填充字符，等缓冲区完成字符填充，再调用action更新内容
-    if (!chatMessages[chatMessages.length - 1].content) {
+
+    if (chatMessages.length && !chatMessages[chatMessages.length - 1].content) {
       flowOutputMd(tempChatContentBuffer, 50);
+      // console.log(tempChatContentBuffer);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tempChatContentBuffer]);
@@ -193,7 +202,6 @@ const ChatBox = () => {
           <TouchableOpacity
             style={styles.chatTouchReturn}
             onPress={() => {
-              console.log('xxxx');
               dispatch(openMenu());
               // dispatch(removeToken());
               // dispatch(failVerified());
