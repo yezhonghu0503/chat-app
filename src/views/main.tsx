@@ -20,7 +20,6 @@ const FlexDimensionsBasics = () => {
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.account.token);
-
   const userStatus = async () => {
     if (token === '') {
       dispatch(failVerified());

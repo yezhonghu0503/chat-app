@@ -37,6 +37,7 @@ const ChatBox = () => {
   const chatMarkdown = {
     text: {
       color: 'white',
+      fontSize: 16,
     },
     fence: {
       borderColor: 'rgb(39,43,53)',
@@ -59,7 +60,6 @@ const ChatBox = () => {
     const intervalId = setInterval(() => {
       setChatContentBuffer(content.substring(0, index)); // 从原始文本中截取已输出的部分
       index += 4;
-
       if (index > content.length) {
         clearInterval(intervalId); // 文本输出完毕，清除定时器
         dispatch(editChatContent(content));
@@ -73,7 +73,6 @@ const ChatBox = () => {
     // store先构建一个空字符content
     // FlatList检测空字符后触发缓冲区
     // useEffect检测空字符content，往缓冲区中动态填充字符，等缓冲区完成字符填充，再调用action更新内容
-
     if (chatMessages.length && !chatMessages[chatMessages.length - 1].content) {
       flowOutputMd(tempChatContentBuffer, 50);
       // console.log(tempChatContentBuffer);
@@ -131,7 +130,12 @@ const ChatBox = () => {
           <View style={styles.initalPage}>
             {chatMessages.length ? (
               <FlatList
+                // TODO 回复自动滚动到底部
+                initialNumToRender={30}
                 // style={styles.flatList}
+                // onContentSizeChange={() =>
+                //   flatListRef.current.scrollToEnd({animated: true})
+                // }
                 data={chatMessages}
                 renderItem={({item, index}) => {
                   return (
@@ -159,12 +163,14 @@ const ChatBox = () => {
                       </View>
                       {item.role === 'user' ? (
                         // eslint-disable-next-line react-native/no-inline-styles
-                        <Text style={{color: 'white'}}>{item.content}</Text>
+                        <Text style={{color: 'white', fontSize: 16}}>
+                          {item.content}
+                        </Text>
                       ) : (
                         <Markdown rules={rules} style={chatMarkdown}>
                           {index === chatMessages.length - 1 &&
                           item.content === ''
-                            ? chatContentBuffer
+                            ? `${chatContentBuffer} 🛸`
                             : item.content}
                         </Markdown>
                       )}
