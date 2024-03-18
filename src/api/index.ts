@@ -23,7 +23,6 @@ netAxios.interceptors.request.use(
 // 响应拦截器
 netAxios.interceptors.response.use(
   config => {
-    console.log(config);
     if (config.data.code && config.data.code === '400') {
       // store.dispatch(removeToken());
       store.dispatch(failVerified());
