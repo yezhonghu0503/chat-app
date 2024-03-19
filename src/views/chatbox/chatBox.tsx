@@ -10,11 +10,6 @@ import {
 
 import {useSelector, useDispatch} from 'react-redux';
 import {openMenu} from '../../store/reducers/mutual';
-// import {
-//   // addChatContents,
-//   removeChatContents,
-// } from '../../store/reducers/loaclData';
-// import {failVerified, removeToken} from '../../store/reducers/account';
 import {
   editChatContent,
   removeChatContents,
@@ -56,10 +51,13 @@ const ChatBox = () => {
     let index = 0;
     const intervalId = setInterval(() => {
       setChatContentBuffer(content.substring(0, index)); // 从原始文本中截取已输出的部分
-      flatListRef.current.scrollToIndex({
-        index: chatMessages.length - 1,
-        animated: true,
-      });
+      // 跟踪内容滚动
+      if (flatListRef.current) {
+        flatListRef.current.scrollToIndex({
+          index: chatMessages.length - 1,
+          animated: true,
+        });
+      }
       index += 6;
       if (index > content.length) {
         clearInterval(intervalId); // 文本输出完毕，清除定时器
@@ -81,7 +79,10 @@ const ChatBox = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tempChatContentBuffer]);
   useEffect(() => {
-    if (chatMessages[chatMessages.length - 1].content === '') {
+    if (
+      chatMessages[chatMessages.length - 1].content === '' &&
+      flatListRef.current
+    ) {
       flatListRef.current.scrollToEnd({animated: true});
     }
   }, [chatMessages]);
@@ -136,7 +137,6 @@ const ChatBox = () => {
           <View style={styles.initalPage}>
             {chatMessages.length ? (
               <FlatList
-                // TODO 回复自动滚动到底部
                 initialNumToRender={30}
                 ref={flatListRef}
                 // style={styles.flatList}

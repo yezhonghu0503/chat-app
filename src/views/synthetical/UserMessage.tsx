@@ -99,6 +99,18 @@ const UserMessage = () => {
               />
             </View>
           </View>
+          <View style={{...styles.appListText, marginTop: 10}}>
+            <Text style={styles.appListTextModel}>AI丁真2.0</Text>
+            <Text style={styles.appListTextModelDescribe}>
+              你好我是丁真, 要来根电子烟吗
+            </Text>
+            <View style={styles.appListTextModelGo}>
+              <Image
+                style={styles.appListTextModelGoPic}
+                source={require('./img/next.png')}
+              />
+            </View>
+          </View>
         </View>
       </ImageBackground>
     </View>
@@ -216,6 +228,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    flexWrap: 'wrap',
     marginTop: 5,
   },
   appListText: {
