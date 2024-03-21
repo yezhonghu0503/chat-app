@@ -9,16 +9,16 @@ import {
 } from 'react-native';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {openMenu} from '../../store/reducers/mutual';
+import {openMenu} from '../../../store/reducers/mutual';
 import {
   editChatContent,
   removeChatContents,
-} from '../../store/reducers/loaclData';
+} from '../../../store/reducers/loaclData';
 import Markdown from 'react-native-markdown-display';
 import CodeHighlighter from 'react-native-code-highlighter';
 import {atomOneDarkReasonable} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import {chatBoxstyles as styles} from './chatBoxStyles';
-import {clearTempChatContentBuffer} from '../../store/reducers/buffer';
+import {clearTempChatContentBuffer} from '../../../store/reducers/buffer';
 
 const ChatBox = () => {
   const {menuStatus} = useSelector((state: any) => state.mutual);
@@ -157,7 +157,7 @@ const ChatBox = () => {
                         }}>
                         <Image
                           style={styles.chatUserAva}
-                          source={require('../synthetical/img/avatar.png')}
+                          source={require('../../synthetical/img/avatar.png')}
                         />
                         {}
                         <Text
@@ -205,7 +205,7 @@ const ChatBox = () => {
                 <View style={styles.initalHelp}>
                   <Image
                     style={styles.initalHelpLogo}
-                    source={require('../synthetical/img/logo.png')}
+                    source={require('../../synthetical/img/logo.png')}
                   />
                   <Text style={styles.helpTips}>How can I help you today?</Text>
                 </View>

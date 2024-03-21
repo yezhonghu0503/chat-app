@@ -99,7 +99,7 @@ const UserMessage = () => {
               />
             </View>
           </View>
-          <View style={{...styles.appListText, marginTop: 10}}>
+          {/* <View style={{...styles.appListText, marginTop: 10}}>
             <Text style={styles.appListTextModel}>AI丁真2.0</Text>
             <Text style={styles.appListTextModelDescribe}>
               你好我是丁真, 要来根电子烟吗
@@ -110,7 +110,7 @@ const UserMessage = () => {
                 source={require('./img/next.png')}
               />
             </View>
-          </View>
+          </View> */}
         </View>
       </ImageBackground>
     </View>

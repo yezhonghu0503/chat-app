@@ -7,7 +7,8 @@ import {
   //Dimensions
 } from 'react-native';
 import SyntheticalBar from './synthetical/SyntheticalBar';
-import ChatBox from './chatbox/chatBox';
+// import ChatBox from './ContentOutput/chatbox/chatBox';
+import ContentOutput from './ContentOutput';
 import {useSelector, useDispatch} from 'react-redux';
 import {closeMenu} from '../store/reducers/mutual';
 import {getUserStatus} from '../api/account/login';
@@ -63,7 +64,7 @@ const FlexDimensionsBasics = () => {
   return (
     <View style={styles.globalBox}>
       <View style={styles.chatBox}>
-        <ChatBox />
+        <ContentOutput />
       </View>
 
       <View style={styles.syntheticalBox}>
