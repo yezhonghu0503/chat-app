@@ -8,12 +8,15 @@ import {
   ImageBackground,
 } from 'react-native';
 import {ProgressChart} from 'react-native-chart-kit';
+import {useSelector} from 'react-redux';
 
 const UserMessage = () => {
   const data = {
     // labels: ['文本生成Token', '文生图Token', 'xxx3'], // optional
     data: [0.4, 0.6, 0.6],
   };
+  const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
+
   const chartConfig = {
     backgroundColor: '#edcb51',
     backgroundGradientFrom: '#e1c04a',
@@ -28,7 +31,8 @@ const UserMessage = () => {
     },
   };
   return (
-    <View style={styles.main}>
+    // eslint-disable-next-line react-native/no-inline-styles
+    <View style={{...styles.main, display: menuStatus ? 'none' : undefined}}>
       <ImageBackground
         source={require('./img/userBg.png')}
         borderTopLeftRadius={30}

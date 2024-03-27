@@ -2,8 +2,14 @@ import {Dimensions, StyleSheet} from 'react-native';
 export const chatBoxstyles = StyleSheet.create({
   main: {
     flex: 1,
+  },
+  chatbox: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#1b2559',
+    margin: 6,
+    borderRadius: 35,
   },
   loginBackground: {
     flex: 1,

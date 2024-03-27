@@ -1,22 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import InputTerminal from './InputTerminal';
+// import InputTerminal from './InputTerminal';
 import UserMessage from './UserMessage';
 import Login from './Login';
 const SyntheticalBar = () => {
-  const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
   const isVerified = useSelector((state: any) => state.account.isVerified);
   return (
-    <View style={styles.main}>
-      {menuStatus ? (
-        <InputTerminal />
-      ) : isVerified ? (
-        <UserMessage />
-      ) : (
-        <Login />
-      )}
-    </View>
+    <View style={styles.main}>{isVerified ? <UserMessage /> : <Login />}</View>
   );
 };
 

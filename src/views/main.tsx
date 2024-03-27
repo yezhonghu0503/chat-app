@@ -53,12 +53,9 @@ const FlexDimensionsBasics = () => {
     chatBox: {
       flex: chatBoxValue,
       // height: 300,
-      backgroundColor: '#1b2559',
-      margin: 6,
-      borderRadius: 35,
     },
     syntheticalBox: {
-      flex: menuStatus ? 1 : 2,
+      flex: menuStatus ? 0 : 2,
     },
   });
   return (

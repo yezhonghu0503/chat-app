@@ -7,16 +7,16 @@ import {
   // Text,
   TouchableOpacity,
 } from 'react-native';
-import {closeMenu, openMenu} from '../../store/reducers/mutual';
+import {closeMenu, openMenu} from '../../../../store/reducers/mutual';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addChatContents,
   editChatContent,
   // removeChatContents,
-} from '../../store/reducers/loaclData';
-import {postChatContent} from '../../api/apply/chat';
-import {store} from '../../store/index';
-import {addTempChatContentBuffer} from '../../store/reducers/buffer';
+} from '../../../../store/reducers/loaclData';
+import {postChatContent} from '../../../../api/apply/chat';
+import {store} from '../../../../store/index';
+import {addTempChatContentBuffer} from '../../../../store/reducers/buffer';
 
 const InputTerminal = () => {
   const [mesInput, setMesInput] = useState('');
@@ -70,19 +70,19 @@ const InputTerminal = () => {
               }
             }
           }}>
-          <Image source={require('./img/send.png')} />
+          <Image source={require('../img/send.png')} />
         </TouchableOpacity>
       </View>
 
       <View style={styles.syntheticalBoxMenu}>
-        <Image source={require('./img/voice.png')} />
+        <Image source={require('../img/voice.png')} />
       </View>
       <TouchableOpacity
         onPress={() => {
           menuStatus ? dispatch(closeMenu()) : dispatch(openMenu());
         }}>
         <View style={styles.syntheticalBoxMenu}>
-          <Image source={require('./img/menu.png')} />
+          <Image source={require('../img/menu.png')} />
         </View>
       </TouchableOpacity>
     </View>
@@ -91,10 +91,11 @@ const InputTerminal = () => {
 
 const styles = StyleSheet.create({
   unitBox: {
-    flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
+    marginBottom: 15,
+    marginTop: 10,
   },
   syntheticalBoxInput: {
     width: 250,
