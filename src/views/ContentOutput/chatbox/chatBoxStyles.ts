@@ -2,6 +2,7 @@ import {Dimensions, StyleSheet} from 'react-native';
 export const chatBoxstyles = StyleSheet.create({
   main: {
     flex: 1,
+    backgroundColor: '#359765',
   },
   chatbox: {
     flex: 1,
