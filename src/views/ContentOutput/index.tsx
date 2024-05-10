@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const ContentOutput = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="chat">
+      <Stack.Navigator initialRouteName="imageGener">
         <Stack.Screen
           name="chat"
           options={{headerShown: false}}

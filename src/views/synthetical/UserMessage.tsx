@@ -6,17 +6,19 @@ import {
   Text,
   Dimensions,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import {ProgressChart} from 'react-native-chart-kit';
 import {useSelector} from 'react-redux';
+// import {useNavigation} from '@react-navigation/native';
 
 const UserMessage = () => {
+  // const navigation = useNavigation();
   const data = {
     // labels: ['文本生成Token', '文生图Token', 'xxx3'], // optional
     data: [0.4, 0.6, 0.6],
   };
   const menuStatus = useSelector((state: any) => state.mutual.isMenuStatus);
-
   const chartConfig = {
     backgroundColor: '#edcb51',
     backgroundGradientFrom: '#e1c04a',
@@ -79,18 +81,23 @@ const UserMessage = () => {
           </View>
         </View>
         <View style={styles.appList}>
-          <View style={styles.appListText}>
-            <Text style={styles.appListTextModel}>GPT-4 Turbo</Text>
-            <Text style={styles.appListTextModelDescribe}>
-              A large multimodal model
-            </Text>
-            <View style={styles.appListTextModelGo}>
-              <Image
-                style={styles.appListTextModelGoPic}
-                source={require('./img/next.png')}
-              />
+          <TouchableOpacity
+            onPress={() => {
+              // navigation.navigate('chat' as never);
+            }}>
+            <View style={styles.appListText}>
+              <Text style={styles.appListTextModel}>GPT-4 Turbo</Text>
+              <Text style={styles.appListTextModelDescribe}>
+                A large multimodal model
+              </Text>
+              <View style={styles.appListTextModelGo}>
+                <Image
+                  style={styles.appListTextModelGoPic}
+                  source={require('./img/next.png')}
+                />
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
           <View style={styles.appListText}>
             <Text style={styles.appListTextModel}>DALL·E 3</Text>
             <Text style={styles.appListTextModelDescribe}>

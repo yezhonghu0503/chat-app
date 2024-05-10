@@ -41,7 +41,7 @@ const Login = () => {
     });
   };
   const userVerify = async () => {
-    const res = await postUserVerify({passphrase: userInputData.password});
+    const res = await postUserVerify({passphrase: userInputData.username});
     debugShowToast(res.data);
     if (res.data.status === 200) {
       showToast();

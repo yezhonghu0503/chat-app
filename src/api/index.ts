@@ -4,7 +4,7 @@ import {failVerified} from '../store/reducers/account';
 import {closeMenu} from '../store/reducers/mutual';
 
 const netAxios = axios.create({
-  baseURL: 'http://43.156.237.21:8999',
+  baseURL: 'http://149.28.72.225:8999',
   timeout: 60 * 1000,
 });
 

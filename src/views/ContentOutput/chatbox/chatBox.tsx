@@ -127,6 +127,9 @@ const ChatBox = () => {
   return (
     <View style={styles.main}>
       <View style={styles.chatbox}>
+        {
+          // Q:登录时不会显示登录背景
+        }
         {isVerified ? (
           <View style={styles.chatTouch}>
             <View style={styles.chatHearder}>
