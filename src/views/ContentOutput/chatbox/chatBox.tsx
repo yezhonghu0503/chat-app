@@ -22,8 +22,6 @@ import {clearTempChatContentBuffer} from '../../../store/reducers/buffer';
 import InputTerminal from './components/InputTerminal';
 
 const ChatBox = () => {
-  const {menuStatus} = useSelector((state: any) => state.mutual);
-  const {isVerified} = useSelector((state: any) => state.account);
   const chatMessages = useSelector((state: any) => state.local.chatContents);
   const flatListRef: any = useRef();
   const tempChatContentBuffer = useSelector(
@@ -130,120 +128,108 @@ const ChatBox = () => {
         {
           // Q:登录时不会显示登录背景
         }
-        {isVerified ? (
-          <View style={styles.chatTouch}>
-            <View style={styles.chatHearder}>
-              <Text style={styles.chatHearderText}>GPT-4 Turbo</Text>
-              <Image
-                style={styles.chatHearderImage}
-                source={require('./img/menu.png')}
-              />
-            </View>
-            <View style={styles.initalPage}>
-              {chatMessages.length ? (
-                <FlatList
-                  initialNumToRender={30}
-                  ref={flatListRef}
-                  // style={styles.flatList}
-                  // onContentSizeChange={() =>
-                  //   flatListRef.current.scrollToEnd({animated: true})
-                  // }
-                  data={chatMessages}
-                  renderItem={({item, index}) => {
-                    return (
+
+        <View style={styles.chatTouch}>
+          <View style={styles.chatHearder}>
+            <Text style={styles.chatHearderText}>GPT-4 Turbo</Text>
+            <Image
+              style={styles.chatHearderImage}
+              source={require('./img/menu.png')}
+            />
+          </View>
+          <View style={styles.initalPage}>
+            {chatMessages.length ? (
+              <FlatList
+                initialNumToRender={30}
+                ref={flatListRef}
+                // style={styles.flatList}
+                // onContentSizeChange={() =>
+                //   flatListRef.current.scrollToEnd({animated: true})
+                // }
+                data={chatMessages}
+                renderItem={({item, index}) => {
+                  return (
+                    <View
+                      key={index}
+                      style={{
+                        ...styles.chatUser,
+                      }}>
                       <View
-                        key={index}
                         style={{
-                          ...styles.chatUser,
+                          ...styles.chatUserTit,
                         }}>
-                        <View
+                        <Image
+                          style={styles.chatUserAva}
+                          source={require('../../synthetical/img/avatar.png')}
+                        />
+                        {}
+                        <Text
+                          // eslint-disable-next-line react-native/no-inline-styles
                           style={{
-                            ...styles.chatUserTit,
+                            color: 'white',
+                          }}>
+                          {item.role === 'user' ? '你' : 'ChatGPT'}
+                        </Text>
+                      </View>
+                      {item.role === 'user' ? (
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        <Text style={{color: 'white', fontSize: 16}}>
+                          {item.content}
+                        </Text>
+                      ) : (
+                        <Markdown rules={rules} style={chatMarkdown}>
+                          {index === chatMessages.length - 1 &&
+                          item.content === ''
+                            ? `${chatContentBuffer} 🛸`
+                            : item.content}
+                        </Markdown>
+                      )}
+                      <View style={styles.itemAction}>
+                        <Image
+                          style={styles.itemDelete}
+                          source={require('./img/refresh.png')}
+                        />
+                        <TouchableOpacity
+                          onPress={() => {
+                            dispatch(removeChatContents());
                           }}>
                           <Image
-                            style={styles.chatUserAva}
-                            source={require('../../synthetical/img/avatar.png')}
-                          />
-                          {}
-                          <Text
-                            // eslint-disable-next-line react-native/no-inline-styles
-                            style={{
-                              color: 'white',
-                            }}>
-                            {item.role === 'user' ? '你' : 'ChatGPT'}
-                          </Text>
-                        </View>
-                        {item.role === 'user' ? (
-                          // eslint-disable-next-line react-native/no-inline-styles
-                          <Text style={{color: 'white', fontSize: 16}}>
-                            {item.content}
-                          </Text>
-                        ) : (
-                          <Markdown rules={rules} style={chatMarkdown}>
-                            {index === chatMessages.length - 1 &&
-                            item.content === ''
-                              ? `${chatContentBuffer} 🛸`
-                              : item.content}
-                          </Markdown>
-                        )}
-                        <View style={styles.itemAction}>
-                          <Image
                             style={styles.itemDelete}
-                            source={require('./img/refresh.png')}
+                            source={require('./img/delete.png')}
                           />
-                          <TouchableOpacity
-                            onPress={() => {
-                              dispatch(removeChatContents());
-                            }}>
-                            <Image
-                              style={styles.itemDelete}
-                              source={require('./img/delete.png')}
-                            />
-                          </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
                       </View>
-                    );
-                  }}
-                />
-              ) : (
-                <ScrollView>
-                  <View style={styles.initalHelp}>
-                    <Image
-                      style={styles.initalHelpLogo}
-                      source={require('../../synthetical/img/logo.png')}
-                    />
-                    <Text style={styles.helpTips}>
-                      How can I help you today?
-                    </Text>
-                  </View>
-                </ScrollView>
-              )}
-            </View>
-            <TouchableOpacity
-              style={styles.chatTouchReturn}
-              onPress={() => {
-                dispatch(openMenu());
-                // dispatch(removeToken());
-                // dispatch(failVerified());
-                // flowOutputMd();
-              }}>
-              <Image
-                style={styles.chatTouchReturnPic}
-                borderRadius={15}
-                source={require('./img/remove.png')}
+                    </View>
+                  );
+                }}
               />
-            </TouchableOpacity>
+            ) : (
+              <ScrollView>
+                <View style={styles.initalHelp}>
+                  <Image
+                    style={styles.initalHelpLogo}
+                    source={require('../../synthetical/img/logo.png')}
+                  />
+                  <Text style={styles.helpTips}>How can I help you today?</Text>
+                </View>
+              </ScrollView>
+            )}
           </View>
-        ) : (
-          <Image
-            source={require('./img/bg.png')}
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              ...styles.loginBackground,
-              display: menuStatus ? 'none' : undefined,
-            }}
-          />
-        )}
+          <TouchableOpacity
+            style={styles.chatTouchReturn}
+            onPress={() => {
+              dispatch(openMenu());
+              // dispatch(removeToken());
+              // dispatch(failVerified());
+              // flowOutputMd();
+            }}>
+            <Image
+              style={styles.chatTouchReturnPic}
+              borderRadius={15}
+              source={require('./img/remove.png')}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <InputTerminal />
     </View>

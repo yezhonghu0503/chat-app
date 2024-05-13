@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import {ProgressChart} from 'react-native-chart-kit';
 import {useSelector} from 'react-redux';
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const UserMessage = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const data = {
     // labels: ['文本生成Token', '文生图Token', 'xxx3'], // optional
     data: [0.4, 0.6, 0.6],
@@ -98,18 +98,25 @@ const UserMessage = () => {
               </View>
             </View>
           </TouchableOpacity>
-          <View style={styles.appListText}>
-            <Text style={styles.appListTextModel}>DALL·E 3</Text>
-            <Text style={styles.appListTextModelDescribe}>
-              A description in natural language
-            </Text>
-            <View style={styles.appListTextModelGo}>
-              <Image
-                style={styles.appListTextModelGoPic}
-                source={require('./img/next.png')}
-              />
+          <TouchableOpacity
+            onPress={() => {
+              setTimeout(() => {
+                navigation.navigate('imageGener' as never);
+              }, 200);
+            }}>
+            <View style={styles.appListText}>
+              <Text style={styles.appListTextModel}>DALL·E 3</Text>
+              <Text style={styles.appListTextModelDescribe}>
+                A description in natural language
+              </Text>
+              <View style={styles.appListTextModelGo}>
+                <Image
+                  style={styles.appListTextModelGoPic}
+                  source={require('./img/next.png')}
+                />
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
           {/* <View style={{...styles.appListText, marginTop: 10}}>
             <Text style={styles.appListTextModel}>AI丁真2.0</Text>
             <Text style={styles.appListTextModelDescribe}>

@@ -12,13 +12,6 @@ export const chatBoxstyles = StyleSheet.create({
     margin: 6,
     borderRadius: 35,
   },
-  loginBackground: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-    borderRadius: 35,
-  },
   chatTouch: {
     flex: 1,
     //   marginLeft: 10,
